@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+  <title>h5webapp组件式开发(慕课网)</title>
+</head>
+<!-- 载入所有的组件资源 -->
+<script src = "lib/jquery-2.0.0.min.js"></script>
+<script src= "lib/jquery.fullPage.js"></script>
+
+
+<!-- 加载H5组件相关资源 -->
+<!-- 少一个ring -->
+<script>
+  var res = [
+  'base','bar','Pie','polyLine','Radar','Point','Bar-v','Ring'
+  ];
+  var html = [];
+  for(s in res){
+    html.push('<script src= "js/H5Component'+res[s]+'.js"><\/script>');
+    //遇到/ 记得用\/转码
+    html.push('<link rel="stylesheet" href="css/H5Component'+res[s]+'.css">')
+  }
+  document.write(html.join(''))</script>
+
+<!-- H5对象:进行内容管理 -->
+<script src="js/H5.js"></script>
+<link rel="stylesheet" href="css/H5.css">
+
+<!-- 页面逻辑的样式 -->
+<style>
+  body{
+    margin: 0;
+    padding: 0;
+    background-size: cover;
+  }
+  .h5_page{
+    background: url(imgs/page_bg.png);
+  }
+  .h5_page_face{
+  background: url(imgs/face_bg.png);
+  }
+  .h5_component_name_slogan{
+    -webkit-animation:rock 1s  2s;
+  }
+  @-webkit-keyframes rock{
+    0%{ transform:rotate( 0deg) }
+    5%{ transform:rotate( 3deg) }
+    10%{ transform:rotate( -4deg) }
+    15%{ transform:rotate( 3deg) }
+    20%{ transform:rotate( -2deg)}
+    25%{ transform:rotate( 1deg) }
+    30%{ transform:rotate( -1deg) }
+    70%{ transform:rotate( 0deg) }
+    100%{ transform:rotate( 0deg) }
+  }
+  .h5_component_name_caption{
+    background-image: url(imgs/page_caption_bg.png);
+    width: 283px;
+    height: 160px;
+    text-align: center;
+    line-height:140px;
+    font-size: 20px;
+    color: #fff;
+  }
+  .h5_component_name_back{
+    top:30px;
+    -webkit-animation:back 2s infinite 2s;
+  }
+   @-webkit-keyframes back{
+  50%{top:20px;}
+  }
+</style>
+<!-- 主要逻辑 -->
+<script>
+  $(function (){
+    var h5 = new H5();
+
+    //底部提示上滑
+    h5.whenAddpage = function () {
+      this.addComponent('slide_up',{
+        bg:'imgs/footer.png',
+        css:{
+          left:0,bottom:-20,opacity:0,
+          width:'100%',height:'20px',zIndex:999
+        },
+        animateIn:{bottom:-1,opacity:1},
+        animateOut:{bottom:-20,opacity:0},
+        delay:500
+      })
+    }
+
+     h5.addPage('face')
+           .addComponent('topic',{
+             center:true,
+             width:395,
+             height:130,
+             bg:'imgs/face_logo.png',
+             css:{opacity:0},
+             animateIn:{top:100,opacity:1},
+             animateOut:{top:0,opacity:0},
+           })
+           .addComponent('slogan',{
+            center:true,
+            width:365,
+            height:99,
+            bg:"imgs/face_slogan.png",
+            css:{opacity:0,top:180},
+            animateIn:{left:"50%",opacity:1},
+            animateOut:{left:"0%",opacity:0},
+            delay:500
+           })
+           .addComponent('face_img_left',{
+            width:370,
+            height:493,
+            bg:"imgs/face_img_left.png",
+            css:{opacity:0,left:-50,bottom:-50},
+            animateIn:{left:0,bottom:0,opacity:1},
+            animateOut:{left:-50,bottom:-50,opacity:0},
+            delay:1000
+           })
+           .addComponent('face_img_right',{
+            width:276,
+            height:449,
+            bg:"imgs/face_img_right.png",
+            css:{opacity:0,right:-50,bottom:-50},
+            animateIn:{right:0,bottom:0,opacity:1},
+            animateOut:{right:-50,bottom:-50,opacity:0},
+            delay:1000
+           })
+        .addPage()
+           .addComponent('caption',{
+             text:'核心理念'})
+           .addComponent('text',{
+            width:500,
+            height:30,
+            center:true,
+            text:"IT教育网=只学有用的",
+            css:{
+              opacity:0,textAlign:"center",color:"red",fontSize:"26px"
+            },
+            animateIn:{opacity:1,top:120},
+            animateOut:{opacity:0,top:240},
+           })
+           .addComponent("description",{
+            center:true,
+            width:481,
+            height:295,
+            bg:"imgs/description_bg.gif",
+            text:'2013年,IT教育网的诞生引领中国IT职业从教育进入新时代,高质量实战课程,全新的教学模式,实时互动学习,以领先的优势打造行业品牌,迄今为止,IT教育网已成为中国规模最大,互动性最高的IT技能学习平台',
+            css:{
+              opacity:0,
+              padding:'15px 10px 10px 10px',
+              color:"#fff",
+              fongSize:'15px',
+              lineHeight:'18px',
+              textAlign:'justify',
+              top:240
+            },
+            animateIn:{opacity:1,top:190},
+            animateOut:{opacity:0,top:240},
+            delay:500,
+           })
+           .addComponent('people',{
+            center:true,
+            width:515,
+            height:305,
+            bg:'imgs/p1_people.png',
+            css:{
+              opacity:0,
+              bottom:0
+            },
+            animateIn:{opacity:1,bottom:40},
+            animateOut:{opacity:0,bottom:0},
+           })
+         .addPage()
+           .addComponent('caption',{
+             text:'课程分布方向'})//poyline
+           .addComponent('polyline',{
+              type:"polyline",
+              width:530,
+              height:400,
+              data:[
+                ['JS','.6','#ff7676'],
+                ['jQuery','.2','#f00'],
+                ['HTML','.5',],
+                ['HTML5','.3',],
+                ['HTML5','.6',],
+              ],
+              css:{
+                top:100,
+                opacity:0,
+              },
+              animateIn:{top:230,opacity:1},
+              animateOut:{top:100,opacity:0},
+              center:true,})
+            .addComponent('msg',{
+              text:'前端开发课程占到40%',
+              css:{
+                opacity:0,top:140,textAlign:'center',color:'#ff7676',width:"100%"
+              },
+              animateIn:{opacity:1},
+              animateOut:{opacity:0},
+            })
+
+         .addPage()
+           .addComponent('caption',{
+             text:'移动开发课程资源'})//pie
+           .addComponent('pie',{
+              type : 'pie',
+              width:400,
+              height:400,
+             data:[
+               ['JS','.4','#ff7676'],
+               ['jQuery','.2',"#5ddbd8"],
+               ['HTML','.3',"#99c1ff"],
+               ['PHP','.1',"#ffab69"],
+             ],
+              css:{
+                top:200,
+
+              },
+              //animateIn:{top:100,opacity:1},
+              //animateOut:{top:300,opacity:0},
+              center:true,})
+         .addPage()
+         .addComponent('caption',{
+           text:'前端开发课程'})//bar(bar_v)
+         .addComponent('bar_v',{
+          type : 'bar_v',
+          width:530,
+          height:300,
+          data:[
+            ['JavaScript','.4','#ff7676'],
+            ['jQuery','.6',],
+            ['HTML','.2',],
+            ['HTML5','.5',],
+            ['CSS3','.4',],
+          ],
+          css:{
+            top:300,
+            opacity:0,
+
+          },
+          animateIn:{top:220,opacity:1},
+          animateOut:{top:300,opacity:0},
+          center:true,
+         })
+          .addComponent('msg',{
+              text:'前端开发课程Jquery资源占到60%',
+              css:{
+                opacity:0,top:160,textAlign:'center',color:'#ff7676',width:"100%",fontSize:'20px'
+              },
+              animateIn:{opacity:1},
+              animateOut:{opacity:0},
+            })
+          .addPage()
+         .addComponent('caption',{
+           text:'前端开发课程2'})//bar(bar_v)
+         .addComponent('bar',{
+          type : 'bar',
+          width:530,
+          height:300,
+          data:[
+            ['JS','.6','#ff7676'],
+            ['jQuery','.2',"#5ddbd8"],
+            ['HTML','.3',"#99c1ff"],
+            ['PHP','.1',"#ffab69"],
+            ['webpack','.3','#ff7676'],
+            ['vue','.2',"#5ddbd8"],
+            ['npm','.5',"#99c1ff"],
+            ['react','.2',"#ffab69"],
+            ['Bootstrap','.5',"#99c1ff"],
+            ['angular','.2',"#ffab69"],
+          ],
+          css:{
+            top:0,
+            opacity:0,
+
+          },
+          animateIn:{top:200,opacity:1},
+          animateOut:{top:0,opacity:0},
+          center:true,
+         })
+          .addComponent('msg',{
+              text:'课程市场覆盖范围广',
+              css:{
+                opacity:0,top:140,textAlign:'center',color:'#ff7676',width:"100%",fontSize:'20px'
+              },
+              animateIn:{opacity:1},
+              animateOut:{opacity:0},
+            })
+         .addPage()
+         .addComponent('caption',{
+           text:'后端开发课程'})//radar
+         .addComponent('radar',{
+          type : 'radar',
+          width:400,
+          height:400,
+          data:[
+           ['JS','.6','#ff7676'],
+           ['jQuery','.7',"#5ddbd8"],
+           ['HTML','.3',"#99c1ff"],
+           ['PHP','.4',"#ffab69"],
+           ['webpack','.3','#ff7676'],
+          ],
+          css:{
+            top:220,
+            opacity:0,
+
+          },
+          animateIn:{top:220,opacity:1},
+          animateOut:{top:400,opacity:0},
+          center:true,
+         })
+         .addComponent('msg',{
+             text:'各类课程实力分析',
+             css:{
+               opacity:0,top:140,textAlign:'center',color:'#ff7676',width:"100%",fontSize:'20px'
+             },
+             animateIn:{opacity:1},
+             animateOut:{opacity:0},
+           })
+
+
+
+         .addPage()
+         .addComponent('caption',{
+           text:'报名人数过万'})//ring
+         .addComponent('ring',{type : 'ring',width : 300,height : 300,
+                data:[['总课程' , .7  ,'#ff7676'],],
+                css : {top:120,opacity:0,fontSize:'30px'},
+                animateIn:{ opacity:1,top:120,},
+                animateOut:{opacity:0,top:80,},
+                center : true,})
+         .addComponent('msg',{
+             text:'不同课程报名人数超过一万占比',
+             css:{
+               opacity:0,top:280,textAlign:'center',color:'#ff7676',width:"100%",fontSize:'18px'
+             },
+             animateIn:{opacity:1},
+             animateOut:{opacity:0},
+             delay:1500
+           })
+         .addComponent('ring-1',{type : 'ring',width : 140,height : 140,
+                data:[['前端开发' , .44  ,'darkorange'],],
+                css : {bottom:120,left:30,opacity:0,fontSize:'12px'},
+                animateIn:{ opacity:1,bottom:120,left:30},
+                animateOut:{opacity:0,bottom:80},
+                delay:300
+               })
+        .addComponent('ring-2',{type : 'ring',width : 140,height : 140,
+                 data:[['后端开发' , .35  ,'darkorange'],],
+                 css : {bottom:120,opacity:0,fontSize:'12px'},
+                 animateIn:{ opacity:1,bottom:120},
+                 animateOut:{opacity:0,bottom:80,},center:true,
+                 delay:600
+                 })
+        .addComponent('ring-3',{type : 'ring',width : 140,height : 140,
+               data:[['移动开发' , .5 ,'darkorange'],],
+               css : {bottom:120,opacity:0,fontSize:'12px',right:30},
+               animateIn:{ opacity:1,bottom:120,right:30},
+               animateOut:{opacity:0,bottom:80,},
+               delay:900
+               })
+        .addComponent('ring-4',{type : 'ring',width : 140,height : 140,
+               data:[['数据处理' , .2 ,'darkorange'],],
+               css : {bottom:40,opacity:0,fontSize:'12px',left:76},
+               animateIn:{ opacity:1,bottom:40},
+               animateOut:{opacity:0,bottom:0,},
+               delay:1200
+               })
+        .addComponent('ring-5',{type : 'ring',width : 140,height : 140,
+               data:[['图像处理' , .15 ,'darkorange'],],
+               css : {bottom:40,opacity:0,fontSize:'12px',right:76},
+               animateIn:{ opacity:1,bottom:40},
+               animateOut:{opacity:0,bottom:0,},
+               delay:1500
+               })
+
+
+         .addPage()
+         .addComponent('caption',{
+           text:'课程难度分级'})//point
+         .addComponent('point',{
+              type : 'point',
+              width : 300,
+              height : 300,
+              data:[
+                  ['初级' , .4  ,'#ff7676'],
+                  ['中级' , .3  ,'99c1ff', -60 ,'-90%'],
+                  ['高级' , .2  ,'#ffa3a4', 100 ,'-120%'],
+
+              ],
+              css : {
+                  bottom:'15%'
+              },
+              center : true,
+         })
+
+
+
+
+
+        .addPage('tail')
+            .addComponent('logo',{
+              center:true,
+              width:359,
+              height:129,
+              bg:'imgs/tail_logo.png',
+              css:{
+                top:240,opacity:1
+              },
+              animateIn:{opacity:1, top:210},
+              animateOut:{opacity:0,top:240}
+            })
+            .addComponent('slogo',{
+              center:true,
+              width:314,
+              height:46,
+              bg:'imgs/tail_slogan.png',
+              css:{
+                top:280,opacity:1
+              },
+              animateIn:{opacity:1, left:"50%"},
+              animateOut:{opacity:0,left:"0%"},
+              delay:500
+            })
+             .addComponent('share',{
+              width:128,
+              height:120,
+              bg:'imgs/tail_share.png',
+              css:{
+                opacity:0,top:110,right:110
+              },
+              animateIn:{opacity:1, top:10,right:10},
+              animateOut:{opacity:0,top:110,right:110},
+              delay:500
+            })
+              .addComponent('back',{
+              width:52,
+              height:50,
+              bg:'imgs/tail_back.png',
+              center:true,
+              onclick:function () {
+                $.fn.fullpage.moveTo(1)
+              }
+            })
+
+          //快速跳转到页面
+         .loader(9)
+
+         //用于模拟触发事件
+         var leave = true;
+         $('body').click(function () {
+          leave = !leave
+           $('.h5_component').trigger(leave ? 'onLeave' : 'onLoad')
+         });
+
+         setTimeout(function () {
+           $('body').click();
+         },0);
+  })
+</script>
+<body>
+
+</body>
+</html>

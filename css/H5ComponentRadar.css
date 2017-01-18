@@ -1,0 +1,30 @@
+/* 折线图组件样式 */
+ .h5_component_radar {
+
+
+ }
+  .h5_component_radar canvas{
+    position: absolute;/* 为了分层*/
+    left: 0;
+    top:0;
+    height: 100%;
+    width: 100%;
+ }
+ .h5_component_radar .text{
+    position: absolute;
+    font-size: 16px;
+    text-align: center;
+    bottom: -20px;
+    height: 20px;
+    line-height: 20px;
+    transform:scale(.9);
+    transition:all 1.5s 2s;
+    -webkit-transition:all 1.5s 2s;
+
+ }
+.h5_component_radar_load .text{
+    -webkit-opacity: 1;
+}
+.h5_component_radar_leave .text{
+    -webkit-opacity: 0;
+}

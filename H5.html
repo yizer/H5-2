@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <!-- 基本资源库 -->
+<script src="lib/jquery-2.0.0.min.js"></script>
+<link rel="stylesheet" href="lib/jquery.fullPage.css">
+<script src="lib/jquery.fullPage.js"></script>
+
+<!-- H5对象资源&管理内容:页一组件 -->
+<script src="js/H5.js"></script>
+<script src="js/H5ComponentBase.js"></script>
+<link rel="stylesheet" href="css/H5.css">
+</head>
+<body>
+  <!-- 测试内容组织功能,以及fullpage页面切换&组件切换 -->
+ <script>
+ $(function () {
+   var h5 = new H5();
+
+    h5.addPage('face')
+          .addComponent('logo',{
+            text:'logo',
+            type:'base',
+            width:400,
+            height:100,
+            css:{backgroundColor:'red',top:200,opacity:0},
+            center:true,
+            animateIn:{opacity:1},
+            animateOut:{opacity:0}
+          })
+        .addPage('desc')
+          .addComponent('caption',{
+            text:'核心理念',
+            text:'slogan',
+            width:400,
+            height:100,
+            css:{backgroundColor:'red',top:300,opacity:0},
+            center:true,
+            animateIn:{opacity:1},
+            animateOut:{opacity:0}
+          })
+        .addPage('page-3')
+           .addComponent('caption',{text:'课程分部方向'})
+        .loader()
+ });
+ </script>
+</body>
+</html>

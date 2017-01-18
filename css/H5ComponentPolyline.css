@@ -1,0 +1,30 @@
+/* 折线图组件样式 */
+ .h5_component_polyline {
+
+
+ }
+  .h5_component_polyline canvas{
+    position: absolute;/* 为了分层*/
+    left: 0;
+    top:0;
+    background-color: #eee;
+    height: 100%;
+ }
+ .h5_component_polyline .text{
+    position: absolute;
+    font-size: 12px;
+    text-align: center;
+    bottom: -20px;
+    height: 20px;
+    line-height: 20px;
+    transform:scale(.9);
+    transition:all 1s 1.5s;
+    -webkit-transition:all 1s 1.5s;
+
+ }
+.h5_component_polyline_load .text{
+    -webkit-opacity: 1;
+}
+.h5_component_polyline_leave .text{
+    -webkit-opacity: 0;
+}
