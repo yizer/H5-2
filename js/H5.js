@@ -1,3 +1,5 @@
+var jdata = [];
+
 var H5 = function () {
   this.id = ('h5_'+Math.random()).replace('.','_');
   this.el =$('<div class = "h5" id="'+this.id+'">').hide();
@@ -7,7 +9,12 @@ var H5 = function () {
   // @param {string} name 组建的名称,会加入到className中
   // @param {string} text 页内的默认文本
   // @param return{H5},可以重复使用H%对象支持的方法
+
+
+
   this.addPage = function (name,text) {
+
+    jdata.push({ispage:true,name:name, text:text});
     // 添加一个;类名为h5_page的类名
     var page = $('<div class = "h5_page section">');
     //判断,如name不为空,这把name加入类中,用于标识区别
@@ -26,6 +33,8 @@ var H5 = function () {
   }
   //新增一个组件
   this.addComponent = function(name,cfg) {
+
+    jdata.push({ispage:false,name:name, cfg:cfg});
     var cfg = cfg || {};
     //cfg中没有type参数,就使用默认的base,不要的话就用cfg中的
     cfg = $.extend({
@@ -81,4 +90,5 @@ var H5 = function () {
       $.fn.fullpage.moveTo(firstPage)
     }
   }
+  this.loader = typeof H5_loading == 'function' ? H5_loading : this.loader;
 }
