@@ -60,17 +60,17 @@ var H5ComponentPie = function ( name, cfg ) {
     per.text(cfg.data[i][1] * 100 + "%");
     text.append(per);
 
-    var x = r + Math.cos(sAngel + (eAngel - sAngel) /2) * r * 1.4;
-    var y = r + Math.sin(sAngel + (eAngel - sAngel) /2) * r * 1.4;
+     var x = r + Math.cos(sAngel + (eAngel - sAngel) /2) * r * 2.0;
+    var y = r + Math.sin(sAngel + (eAngel - sAngel) /2) * r * 1.6;
     if (x < r) {
       text.css("left",x/2);
     }else{
-      text.css("right",(w-x)/2);
+      text.css("right",(w-x)/2+10);
     }
      if (y < r) {
       text.css("top",y/2);
     }else{
-      text.css("bottom",(h-y)/2);
+      text.css("bottom",(h-y)/2 +10);
     }
     if (cfg.data[i][2]) {
       text.css("color",cfg.data[i][2])
